@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://g8xpyf7tovtr"]
+
+[ext_resource type="PackedScene" uid="uid://blip82p2c4h4e" path="res://scenes/player/player.tscn" id="1_h2gic"]
+[ext_resource type="Script" path="res://scenes/world/world.gd" id="1_xjy8u"]
+[ext_resource type="Script" path="res://scenes/world/Label.gd" id="2_f0ltm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r8chq"]
+size = Vector2(1176, 20)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_xjy8u")
+player_scene = ExtResource("1_h2gic")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 643)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(578, 0)
+shape = SubResource("RectangleShape2D_r8chq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("2_f0ltm")
+
+[node name="PlayersSpawns" type="Node2D" parent="."]
+
+[node name="1" type="Node2D" parent="PlayersSpawns" groups=["PlayerSpawnPoint"]]
+position = Vector2(91, 583)
+
+[node name="2" type="Node2D" parent="PlayersSpawns" groups=["PlayerSpawnPoint"]]
+position = Vector2(415, 569)
+
+[node name="3" type="Node2D" parent="PlayersSpawns" groups=["PlayerSpawnPoint"]]
+position = Vector2(786, 560)
+
+[node name="4" type="Node2D" parent="PlayersSpawns" groups=["PlayerSpawnPoint"]]
+position = Vector2(1071, 572)

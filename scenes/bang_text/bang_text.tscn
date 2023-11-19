@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://0rsha42efry7"]
+
+[ext_resource type="Script" path="res://scenes/bang_text/bang_text.gd" id="1_nu5ey"]
+
+[sub_resource type="Animation" id="Animation_h41rq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_88t8g"]
+resource_name = "default"
+length = 2.0
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 1.66667, 2),
+"transitions": PackedFloat32Array(0.5, 0.5, 2, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j2t4o"]
+_data = {
+"RESET": SubResource("Animation_h41rq"),
+"default": SubResource("Animation_88t8g")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_blcqd"]
+properties/0/path = NodePath(".:direction")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+
+[node name="BangText" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nu5ey")
+
+[node name="text" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.5
+offset_top = -11.5
+offset_right = 21.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(21.5, 11.5)
+bbcode_enabled = true
+text = "[rainbow freq=1.0 sat=0.8 val=0.8]{text}[/rainbow]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="text"]
+autoplay = "default"
+libraries = {
+"": SubResource("AnimationLibrary_j2t4o")
+}
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_blcqd")

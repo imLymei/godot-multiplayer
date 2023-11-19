@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxndusug47gq1"]
+
+[ext_resource type="Script" path="res://scenes/multiplayer_selection/multiplayer_selection.gd" id="1_vulc3"]
+
+[node name="MultiplayerSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vulc3")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Host" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="StartGame" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Start Game"
+
+[node name="Name" type="LineEdit" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "My name"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/StartGame" to="." method="_on_start_game_pressed"]

@@ -1,0 +1,111 @@
+[gd_scene load_steps=6 format=3 uid="uid://blip82p2c4h4e"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_4v68d"]
+[ext_resource type="Texture2D" uid="uid://c8sjclw85lhsp" path="res://icon.svg" id="1_yt8w8"]
+[ext_resource type="Script" path="res://scenes/player/fairy.gd" id="3_n58sw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0culh"]
+size = Vector2(82, 82)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vftxj"]
+properties/0/path = NodePath("Player:position")
+properties/0/spawn = false
+properties/0/sync = false
+properties/0/watch = false
+properties/1/path = NodePath("Player/FairySpot:position")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath("Player:sync_position")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+
+[node name="PlayerRoot" type="Node2D" groups=["player"]]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_4v68d")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(0, -7.62939e-06)
+scale = Vector2(0.640625, 0.640625)
+texture = ExtResource("1_yt8w8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_0culh")
+
+[node name="FairySpot" type="Node2D" parent="Player"]
+position = Vector2(-10, -71)
+
+[node name="ColorRect" type="ColorRect" parent="Player/FairySpot"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -14.0
+offset_right = 1.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Player/FairySpot"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 14.0
+offset_top = -1.0
+offset_right = 16.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+
+[node name="IdLabel" type="Label" parent="Player"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -116.0
+offset_right = 20.0
+offset_bottom = -93.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fairy" type="Node2D" parent="."]
+position = Vector2(0, -112)
+script = ExtResource("3_n58sw")
+
+[node name="FairyBodySprite" type="Sprite2D" parent="Fairy"]
+scale = Vector2(0.140625, 0.140625)
+texture = ExtResource("1_yt8w8")
+
+[node name="LeftWing" type="Node2D" parent="Fairy/FairyBodySprite"]
+show_behind_parent = true
+
+[node name="LeftWingSprite" type="Sprite2D" parent="Fairy/FairyBodySprite/LeftWing"]
+position = Vector2(-78.2222, 0)
+scale = Vector2(1.18142, 0.396267)
+texture = ExtResource("1_yt8w8")
+
+[node name="RightWing" type="Node2D" parent="Fairy/FairyBodySprite"]
+show_behind_parent = true
+
+[node name="RightWingSprite" type="Sprite2D" parent="Fairy/FairyBodySprite/RightWing"]
+show_behind_parent = true
+position = Vector2(78.2222, 0)
+scale = Vector2(1.18142, 0.396267)
+texture = ExtResource("1_yt8w8")
+
+[node name="Timer" type="Timer" parent="Fairy"]
+one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.02
+delta_interval = 0.02
+replication_config = SubResource("SceneReplicationConfig_vftxj")
